@@ -5,29 +5,32 @@ import labis.niz.ANiz;
 
 public class Niz extends ANiz {
 
-	 public int[] spojiDva(int[] a, int[] b)throws LabisException
-	 {
-		 if(a.length<1||b.length<1) throw new LabisException("Nizovi su prazni");
-		 int n=a.length+b.length;
-		 int[] output=new int[n];
-		 int pom=1,brA=0,brB=0;
-		 for(int i=0;i<n;i++)
-		 {
-			if(brA<a.length-1&&a[brA]<b[brB]&&pom==0)
+	 @Override
+		public int[] spojiDva(int[] a, int[] b) throws LabisException {
+			
+			int output[]=new int[a.length+b.length];
+			int brA=a.length-1;
+		int brB=b.length-1;
+		for(int i=0;i<a.length+b.length;i++)
+		{
+			if(brB<0)
 			{
 				output[i]=a[brA];
-				brA++;
-				pom=1;
+				brA--;
+			}
+			else if(brA>0&& a[brA]>b[brB])
+			{
+				output[i]=a[brA];
+				brA--;
 			}
 			else
 			{
 				output[i]=b[brB];
-				brB++;
-				pom=0;
+				brB--;
 			}
-		 }
-		 return output;
-	 }
+		}
+		return output;
+	}
 
 	 public static int[] ZameniProizvodomSuseda(int a[])
 	 {
