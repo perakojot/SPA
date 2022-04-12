@@ -102,7 +102,16 @@ public class JSLista extends AJSLista {
 	}
 	  public void invertovanjeBezPomocne() throws labis.exception.LabisException
 	  {
-		  throw new LabisException("Not implemented");
+		 if(prvi==null)return;
+		  CvorJSListe p=prvi;
+		  CvorJSListe pok=prvi;
+		  while(p.sledeci!=null)
+		  {
+			  pok=p.sledeci;
+			  p.sledeci=pok.sledeci;
+			  pok.sledeci=prvi;
+			  prvi=pok;
+		  }
 	  }
 	  
 	  public int zbirElemenataUCiklicnoj() throws LabisException
