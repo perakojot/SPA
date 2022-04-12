@@ -39,7 +39,7 @@ public class Niz extends ANiz {
 		 {
 			 if(i==0)
 			 {
-				 p[i]=a[i]*a[i]+1;
+				 p[i]=a[i]*a[i+1];
 			 }
 			 else if(i==a.length-1)
 			 {
