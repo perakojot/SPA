@@ -193,4 +193,151 @@ public class BinarnoStablo extends ABinarnoStablo {
 		if(visinaStabla(k.levo)>visinaStabla(k.desno))return najdubljiCvor(k.levo);
 		else return najdubljiCvor(k.desno);
 	}
+	//Jun 2021
+	
+	public int Jun2021metoda1(CvorStabla k,int v) throws LabisException
+	{
+		if(koren==null)throw new LabisException();
+		if(k==null)return 0;
+		int br=0;
+		if(k.levo!=null && k.levo.podatak==v)br++;
+		else if(k.desno!=null && k.desno.podatak==v)br++;
+		br=br+Jun2021metoda1(k.levo, v);
+		br=br+Jun2021metoda1(k.desno, v);
+		return br;
+	}
+	
+	public int Jun2021metoda2(CvorStabla k) throws LabisException
+	{
+		if(koren==null)throw new LabisException();
+		if(k==null)return 0;
+		int zbir=k.podatak;
+		if(Jun2021metoda2(k.levo)>Jun2021metoda2(k.desno))
+			zbir=zbir+Jun2021metoda2(k.levo);
+		else zbir=zbir+Jun2021metoda2(k.desno);
+		return zbir;
+	}
+	
+	//Jul 2021
+	
+	public int Jul2021metoda1(CvorStabla k) throws LabisException
+	{
+		if(koren==null)throw new LabisException();
+		if(k==null)return 0;
+		int br=0;
+		if(k.levo!=null&&k.desno!=null)
+		{
+			if((k.levo.podatak%2==0&& k.desno.podatak%2!=0)||(k.levo.podatak%2!=0&& k.desno.podatak%2==0))
+				br++;
+		}
+		else if(k.levo==null&&k.desno!=null)br++;
+		else if(k.levo!=null&&k.desno==null)br++;
+		else br++;
+		br=br+Jul2021metoda1(k.levo);
+		br=br+Jul2021metoda1(k.desno);
+		return br;
+	}
+	
+	// Jul2021metoda 2 idk tf hoce ovde
+	
+	//Septembar 2021
+	
+	public void Septembar2021metoda1(CvorStabla k,CvorStabla neki) throws LabisException
+	{
+		//mrzi me da radim verzija
+		if(k==null||neki==null)return;
+		Septembar2021metoda1(k,vrednostRoditeljaZadate(k,neki.podatak));
+		if(neki.podatak%2==0)System.out.println(neki.podatak);
+	}
+	
+	public void Septembar2021metoda1V2(CvorStabla k,CvorStabla neki)
+	{
+		//verzija sa da li postoji
+		if(k==null||neki==null)return;
+		if(k.podatak%2==0)System.out.println(k.podatak);
+		if(postoji(k.levo,neki))Septembar2021metoda1V2(k.levo,neki);
+		else Septembar2021metoda1V2(k.desno,neki);
+		
+	}
+	
+	public boolean postoji(CvorStabla k,CvorStabla neki)
+	{
+		if(k==null||neki==null)return false;
+		if(k==neki)return true;
+		if(postoji(k.levo,neki))return true;
+		else return postoji(k.desno,neki);
+	}
+	
+	public void Septembar2021metoda2(CvorStabla k,int nivo)
+	{
+		if(k==null)return;
+		if(nivo(koren,k)==nivo)
+		{
+			if((k.levo==null&&k.desno!=null)||(k.levo!=null&&k.desno==null))
+			{
+				System.out.println(k.podatak);
+			}
+		}
+		else 
+		{
+			Septembar2021metoda2(k.levo,nivo);
+			Septembar2021metoda2(k.desno,nivo);
+		}
+		
+	}
+	
+	public int nivo(CvorStabla k, CvorStabla neki)
+	{
+		if(k==null)return 0;
+		if(k==neki)return 1;
+		int br=1;
+		if(postoji(k.levo,neki))br+=nivo(k.levo,neki);
+		else br+=nivo(k.desno,neki);
+		return br;
+	}
+	
+	
+	//Oktobar 2021
+	
+	public int Oktobar2021metoda1(CvorStabla k)
+	{
+		if(k==null)return 0;
+		int zbir=0;
+		zbir=zbir+Oktobar2021metoda1(k.levo);
+		zbir=zbir+Oktobar2021metoda1(k.desno);
+		if(k.levo==null&&k.desno==null)return k.podatak;
+		else return zbir;
+	}
+	
+	// Metoda 2 pogledati Jun2021metoda2
+	
+	//Oktobar2_2021
+	
+	public int Oktobar2_2021metoda1(CvorStabla k,int dg,int gg)
+	{
+		if(k==null)return 1;
+		int p=1;
+		if(k.podatak>=dg&&k.podatak<=gg)p=p*k.podatak;
+		p=p*Oktobar2_2021metoda1(k.levo,dg,gg);
+		p=p*Oktobar2_2021metoda1(k.desno,dg,gg);
+		return p;
+	}
+	
+	
+	public int Oktobar2_2021metoda2(CvorStabla k) throws LabisException
+	{
+		if(k==null)throw new LabisException();
+		int max=Integer.MIN_VALUE;
+		if(nivo(koren,k)%2==0)max=k.podatak;
+		if(k.levo!=null)
+		{
+			if(Oktobar2_2021metoda2(k.levo)>max)max=Oktobar2_2021metoda2(k.levo);
+		}
+		if(k.desno!=null)
+		{
+			if(Oktobar2_2021metoda2(k.desno)>max)max=Oktobar2_2021metoda2(k.desno);
+		}
+		return max;
+	}
+	
 }
