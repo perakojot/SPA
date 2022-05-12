@@ -175,11 +175,9 @@ public class BinarnoStablo extends ABinarnoStablo {
 	
 	public void ispisiPutanjuKoren(CvorStabla kraj, CvorStabla tekuci) throws LabisException
 	{
-		if(tekuci==null||kraj==null) throw new LabisException();
+		if(k==null||tekuci==null)return;
+		ispisiPutanjuCvor(k,vrednostRoditeljaZadate(k,tekuci.podatak));
 		System.out.println(tekuci.podatak);
-		if(kraj.podatak==tekuci.podatak)return;
-		else if(kraj.podatak>tekuci.podatak)ispisiPutanjuKoren(kraj,tekuci.desno);
-		else ispisiPutanjuKoren(kraj,tekuci.levo);
 	}
 	public int visinaStabla(CvorStabla k) throws LabisException
 	{
