@@ -339,5 +339,81 @@ public class BinarnoStablo extends ABinarnoStablo {
 		}
 		return max;
 	}
+	//Klk2020_g1
+	
+	public int Klk2020metoda1_g1(CvorStabla k) throws LabisException
+	{
+		if(k==null)throw new LabisException("lista je prazna");
+		int p=1;
+		if(k.levo==null&&k.desno==null)p=p*k.podatak;
+		if(k.levo!=null)p=p*Klk2020metoda1_g1(k.levo);
+		if(k.desno!=null)p=p*Klk2020metoda1_g1(k.desno);
+		return p;
+	}
+	
+	// zad2 i dalje nzm sta tf znaci udaljen od lista 
+	
+	public int Klk2020metoda1_g2(CvorStabla k)throws LabisException
+	{
+		if(k==null )throw new LabisException();
+		int br=0;
+		if(visinaStabla(k.levo)>visinaStabla(k.desno))br++;
+		if(k.levo!=null)br+=Klk2020metoda1_g2(k.levo);
+		if(k.desno!=null)br+=Klk2020metoda1_g2(k.desno);
+		return br;
+	}
+	
+	//mrzi me da proveravam mislim da radi ono sto treba
+	public int Klk2020metoda2_g2(CvorStabla k)throws LabisException
+	{
+		
+		if(koren==null)throw new LabisException();//jer me mrzi da radim exceptione		
+		if(k==null)return Integer.MIN_VALUE;
+		int levo=0,desno=0;
+		if(k.levo!=null)levo=zbirCvorova(k.levo);
+		if(k.desno!=null)desno=zbirCvorova(k.desno);
+		int razlika=levo-desno;
+		if(Klk2020metoda2_g2(k.levo)>razlika)razlika=Klk2020metoda2_g2(k.levo);
+		if(Klk2020metoda2_g2(k.desno)>razlika)razlika=Klk2020metoda2_g2(k.desno);
+		return razlika;
+	}
+	
+	//Klk 2021 
+	
+	//trebalo bi da se radi isto za BST i obicno pretrage moze da bude efikasnija ali...
+	public CvorStabla Klk2021metoda1(CvorStabla k,CvorStabla neki) throws LabisException
+	{
+		if(k==null)throw new LabisException();//ako ga ne nadjemo ide exception
+		CvorStabla output=null;
+		if(k.levo==neki)output=k.desno;
+		if(k.desno==neki)output=k.levo;
+		if(output==null&&k.levo!=null)output=Klk2021metoda1(k.levo,neki);
+		if(output==null&&k.desno!=null)output=Klk2021metoda1(k.desno,neki);
+		return output;
+	}
+	
+	public int Klk2021metoda2(CvorStabla k,CvorStabla p,CvorStabla q)throws LabisException
+	{
+		if(p==null||q==null)throw new LabisException();
+		if(k==null)throw new LabisException();
+		if(k==koren && postoji(k.levo,p)&&postoji(k.desno,q))return k.podatak;
+		int proizvod=1;
+		if(postoji(k.levo,p)&&postoji(k.levo,q))
+		{
+			proizvod=proizvod*k.podatak;
+			if(k.levo!=null)proizvod=proizvod*Klk2021metoda2(k.levo,p,q);
+		}
+		else if(postoji(k.desno,p)&&postoji(k.desno,q))
+		{
+			proizvod=proizvod*k.podatak;
+			if(k.desno!=null)proizvod=proizvod*Klk2021metoda2(k.desno,p,q);
+		}
+		else if((postoji(k.levo,p)&&postoji(k.desno,q))||(postoji(k.desno,p)&&postoji(k.levo,q)))
+		{
+			proizvod=proizvod*k.podatak;
+			return proizvod;
+		}
+		return proizvod;
+	}
 	
 }
