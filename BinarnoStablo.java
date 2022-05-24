@@ -43,15 +43,12 @@ public class BinarnoStablo extends ABinarnoStablo {
 	{
 		if(k==null)return null;
 		if(k.desno==null&&k.levo==null)return k;
-		CvorStabla output=null;
-		if(visinaStabla(k.levo)<visinaStabla(k.desno))
-		{
-		 output=vratiCvorNaNajvecojDubini(k.levo);
-		}
-		else
-		{
-		output=vratiCvorNaNajvecojDubini(k.desno);
-		}		
+		CvorStabla output=k;
+		if(k.levo==null)output=vratiListNaNajmanjojDubini(k.desno);
+		else if(k.desno==null)output=vratiListNaNajmanjojDubini(k.levo);
+		else if(visinaStabla(k.levo)<visinaStabla(k.desno))
+		output=vratiListNaNajmanjojDubini(k.levo);
+		else output=vratiListNaNajmanjojDubini(k.desno);
 		return output;
 	}
 	
